@@ -3,8 +3,6 @@ html, body {
     height: 100%;
 }
 
-.ui.image {
+.ui.image.project.item {
   max-height: 250px;
-  left: 50%;
-  transform: translate(-50%);
 }

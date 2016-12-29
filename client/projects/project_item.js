@@ -5,13 +5,25 @@ Template.project_item.events({
 });
 
 Template.project_item.helpers({
-  projects: function() {
-    return Meteor.Projects.find({}).fetch().map(function(val) {
-      return val.title;
-    });
+  itemIndex: function() {
+    return 'projectItem' + getIndexOf(this);
   },
 });
 
+function getIndexOf(obj) {
+  var projects = Meteor.Projects.find({}).fetch();
+  for (var i = 0; i < projects.length; i++) {
+    if (projects[i]._id._str == obj._id._str) {
+      return i;
+    }
+  }
+  return -1;
+}
+
 Template.project_item.onRendered(function() {
-  console.log(this.data);
+  console.log(getIndexOf(this.data));
+  // var itemIndex = getIndexOf(this.data);
+  // Session.set(this.data._id._str, itemIndex);
+  // console.log(this.data);
+  // console.log(Meteor.Projects.find({}).fetch().indexOf(this.data));
 });

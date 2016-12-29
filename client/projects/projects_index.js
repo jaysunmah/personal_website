@@ -21,6 +21,16 @@ Template.projects.helpers({
   },
 });
 
+// Template.projects.render
+
+function wei() {
+  $('.project.container').transition({
+    animation : 'scale',
+    reverse   : 'auto', // default setting
+    interval  : 100
+  });
+}
+
 Template.projects.onRendered(function() {
   $('.ui.menu')
   .on('click', '.item', function() {
@@ -31,4 +41,5 @@ Template.projects.onRendered(function() {
         .removeClass('active');
     }
   });
+  Meteor.setTimeout(wei, 100);
 });

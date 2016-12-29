@@ -22,7 +22,7 @@ function runRound(length, lobbyID) {
 }
 
 Meteor.methods({
-    'makeLobby': function(lobbyID, host) {
+  'makeLobby': function(lobbyID, host) {
 		Meteor.Games.insert({
 			lobbyID: lobbyID,
 			host: host,
