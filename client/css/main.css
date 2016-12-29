@@ -1,0 +1,10 @@
+/* CSS declarations go here */
+html, body {
+    height: 100%;
+}
+
+.ui.image {
+  max-height: 250px;
+  left: 50%;
+  transform: translate(-50%);
+}

@@ -1,0 +1,49 @@
+<template name="projects">
+  <div class="ui container">
+    <div class="ui hidden divider"></div>
+    <a href="/">Return to home</a>
+    <h2 class="ui header">
+      <i class="travel icon"></i>
+      <div class="content">
+        Projects
+        <div class="sub header">Various coding related projects I've dabbled in.</div>
+      </div>
+    </h2>
+    <div class="ui secondary pointing menu">
+      <a class="active item">
+        View all
+      </a>
+      <a class="item">
+        2016
+      </a>
+      <a class="item">
+        2015
+      </a>
+      <a class="item">
+        2014
+      </a>
+    </div>
+    <div class="ui three column stackable grid">
+      <div class="column">
+        {{#each projects 0}}
+          {{> project_item this}}
+        {{/each}}
+      </div>
+      <div class="column">
+        {{#each projects 1}}
+          {{> project_item this}}
+        {{/each}}
+      </div>
+      <div class="column">
+        {{#each projects 2}}
+          {{> project_item this}}
+        {{/each}}
+      </div>
+      <!-- <div class="column">
+        {{#each projects}}
+          {{> project_item this}}
+        {{/each}}
+      </div> -->
+    </div>
+  </div>
+</template>
