@@ -23,6 +23,15 @@
         2014
       </a>
     </div>
+    {{#if isCollapsed}}
+      <div class="ui stackable grid">
+        <div class="sixteen wide column">
+          {{#each allProjects}}
+            {{> project_item this}}
+          {{/each}}
+        </div>
+      </div>
+    {{else}}
     <div class="ui three column stackable grid">
       <div class="column">
         {{#each projects 0}}
@@ -39,11 +48,7 @@
           {{> project_item this}}
         {{/each}}
       </div>
-      <!-- <div class="column">
-        {{#each projects}}
-          {{> project_item this}}
-        {{/each}}
-      </div> -->
     </div>
+    {{/if}}
   </div>
 </template>

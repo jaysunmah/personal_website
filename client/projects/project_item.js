@@ -8,6 +8,9 @@ Template.project_item.helpers({
   itemIndex: function() {
     return 'projectItem' + getIndexOf(this);
   },
+  notRendered: function() {
+    return !(Session.get('renderedProjects'));
+  }
 });
 
 function getIndexOf(obj) {

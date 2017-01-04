@@ -17,21 +17,49 @@ function filterIndices(index) {
 
 Template.projects.helpers({
   projects: function(i) {
-    return filterIndices(i)
+    console.log('bye');
+    return filterIndices(i);
+  },
+  isCollapsed: function() {
+    return Session.get('collapsedProjects');
+  },
+  allProjects: function() {
+    return Meteor.Projects.find({}).fetch();
   },
 });
 
 // Template.projects.render
 
-function wei() {
+function showContainers() {
+  // $('.project.container').addClass('transition hidden');
+  var count = 0;
+  var cb = function() {
+    count ++;
+    if (count == Meteor.Projects.find({}).fetch().length) {
+      Session.set('renderedProjects', true);
+    }
+  }
   $('.project.container').transition({
     animation : 'scale',
     reverse   : 'auto', // default setting
-    interval  : 100
+    interval  : 100,
+    onShow  : cb
   });
+}
+function checkCollapsedProjects() {
+  if ($(window).width() <= 767) {
+    Session.set('collapsedProjects', true);
+  } else {
+    Session.set('collapsedProjects', false);
+  }
 }
 
 Template.projects.onRendered(function() {
+  window.onresize = function(event) {
+    checkCollapsedProjects();
+  };
+
+  checkCollapsedProjects();
   $('.ui.menu')
   .on('click', '.item', function() {
     if(!$(this).hasClass('dropdown')) {
@@ -41,5 +69,7 @@ Template.projects.onRendered(function() {
         .removeClass('active');
     }
   });
-  Meteor.setTimeout(wei, 100);
+  if (!(Session.get('renderedProjects'))) {
+    Meteor.setTimeout(showContainers, 100);
+  }
 });

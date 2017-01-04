@@ -1,11 +1,21 @@
 <template name="project_item">
   <!-- <div class="four wide column"> -->
-    <div class="ui transition hidden segment project container" id="{{itemIndex}}">
-      <img class="ui centered image project item" src ="{{image}}" />
-      <!-- <div class="ui hidden divider"> </div> -->
-      <h4>{{title}}</h4>
-      <h2 class="ui sub header">LANGUAGES</h2>
-      <span>{{languages}}</span>
-    </div>
+    {{#if notRendered}}
+      <div class="ui transition hidden segment project container" id="{{itemIndex}}">
+        <img class="ui centered image project item" src ="{{image}}" />
+        <!-- <div class="ui hidden divider"> </div> -->
+        <h4>{{title}}</h4>
+        <h2 class="ui sub header">LANGUAGES</h2>
+        <span>{{languages}}</span>
+      </div>
+    {{else}}
+      <div class="ui transition visible segment project container" id="{{itemIndex}}">
+        <img class="ui centered image project item" src ="{{image}}" />
+        <!-- <div class="ui hidden divider"> </div> -->
+        <h4>{{title}}</h4>
+        <h2 class="ui sub header">LANGUAGES</h2>
+        <span>{{languages}}</span>
+      </div>
+    {{/if}}
   <!-- </div> -->
 </template>
