@@ -1,3 +1,5 @@
+var renderDelay = 300;
+
 Template.projects.events({
   'click #joinGame' (event) {
     Session.set('joiningGame', true);
@@ -28,8 +30,6 @@ Template.projects.helpers({
   },
 });
 
-// Template.projects.render
-
 function showContainers() {
   // $('.project.container').addClass('transition hidden');
   var count = 0;
@@ -39,13 +39,19 @@ function showContainers() {
       Session.set('renderedProjects', true);
     }
   }
-  $('.project.container').transition({
-    animation : 'scale',
-    reverse   : 'auto', // default setting
-    interval  : 100,
-    onShow  : cb
-  });
+  function animateContainers(i) {
+    $('.project.container.projectItem' + i).transition({
+      animation : 'scale',
+      reverse   : 'auto', // default setting
+      interval  : renderDelay,
+      onShow  : cb
+    });
+  }
+  animateContainers('0');
+  animateContainers('1');
+  animateContainers('2');
 }
+
 function checkCollapsedProjects() {
   if ($(window).width() <= 767) {
     Session.set('collapsedProjects', true);
@@ -55,6 +61,8 @@ function checkCollapsedProjects() {
 }
 
 Template.projects.onRendered(function() {
+  Session.set('renderedProjects', false)
+
   window.onresize = function(event) {
     checkCollapsedProjects();
   };
@@ -70,6 +78,6 @@ Template.projects.onRendered(function() {
     }
   });
   if (!(Session.get('renderedProjects'))) {
-    Meteor.setTimeout(showContainers, 100);
+    Meteor.setTimeout(showContainers, renderDelay);
   }
 });

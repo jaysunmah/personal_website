@@ -1,7 +1,7 @@
 <template name="project_item">
   <!-- <div class="four wide column"> -->
     {{#if notRendered}}
-      <div class="ui transition hidden segment project container" id="{{itemIndex}}">
+      <div class="ui transition hidden segment project container {{itemIndex}}">
         <img class="ui centered image project item" src ="{{image}}" />
         <!-- <div class="ui hidden divider"> </div> -->
         <h4>{{title}}</h4>
@@ -9,7 +9,7 @@
         <span>{{languages}}</span>
       </div>
     {{else}}
-      <div class="ui transition visible segment project container" id="{{itemIndex}}">
+      <div class="ui transition visible segment project container {{itemIndex}}">
         <img class="ui centered image project item" src ="{{image}}" />
         <!-- <div class="ui hidden divider"> </div> -->
         <h4>{{title}}</h4>

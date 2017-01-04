@@ -6,7 +6,7 @@ Template.project_item.events({
 
 Template.project_item.helpers({
   itemIndex: function() {
-    return 'projectItem' + getIndexOf(this);
+    return 'projectItem' + (getIndexOf(this) % 3);
   },
   notRendered: function() {
     return !(Session.get('renderedProjects'));
