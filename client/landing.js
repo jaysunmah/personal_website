@@ -1,6 +1,13 @@
 Template.landing.events({
-  'click #joinGame' (event) {
-    Session.set('joiningGame', true);
+  'click #goToProjects' (event) {
+    var cb = function() {
+      Router.go('/projects');
+    }
+    $('#landingContainer').transition({
+      animation: 'fade right',
+      duration: transitionDelay,
+      onHide: cb
+    });
   },
 });
 
@@ -11,8 +18,16 @@ Template.landing.helpers({
 });
 
 Template.landing.onRendered(function() {
-	$('#landingContents').transition({
-		animation: 'fade left',
-		duration: 750,
-	});
+  if (Session.get('renderedLanding')) {
+    $('#landingContainer').transition({
+  		animation: 'fade right',
+  		duration: transitionDelay,
+  	});
+  } else {
+    Session.set('renderedLanding', true);
+  	$('#landingContainer').transition({
+  		animation: 'fade left',
+  		duration: transitionDelay,
+  	});
+  }
 });

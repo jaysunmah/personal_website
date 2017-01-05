@@ -6,10 +6,17 @@ Template.project_item.events({
 
 Template.project_item.helpers({
   itemIndex: function() {
-    return 'projectItem' + (getIndexOf(this) % 3);
+    return getIndexOf(this) % 3;
   },
-  notRendered: function() {
-    return !(Session.get('renderedProjects'));
+  totalIndex: function() {
+    return getIndexOf(this);
+  },
+  isHidden: function() {
+    if(!(Session.get('renderedProjects'))) {
+      return 'hidden';
+    } else {
+      return 'visible';
+    }
   }
 });
 
@@ -24,9 +31,5 @@ function getIndexOf(obj) {
 }
 
 Template.project_item.onRendered(function() {
-  console.log(getIndexOf(this.data));
-  // var itemIndex = getIndexOf(this.data);
-  // Session.set(this.data._id._str, itemIndex);
-  // console.log(this.data);
-  // console.log(Meteor.Projects.find({}).fetch().indexOf(this.data));
+  // console.log(getIndexOf(this.data));
 });

@@ -1,8 +1,16 @@
-var renderDelay = 300;
+// var renderDelay = 200;
 
 Template.projects.events({
-  'click #joinGame' (event) {
-    Session.set('joiningGame', true);
+  'click #goHome' (event) {
+    Session.set('renderedLanding', true);
+    var cb = function() {
+      Router.go('/');
+    }
+    $('#projectsContainer').transition({
+      animation: 'fade left',
+      duration: transitionDelay,
+      onHide: cb
+    });
   },
 });
 
@@ -19,7 +27,6 @@ function filterIndices(index) {
 
 Template.projects.helpers({
   projects: function(i) {
-    console.log('bye');
     return filterIndices(i);
   },
   isCollapsed: function() {
@@ -32,28 +39,33 @@ Template.projects.helpers({
 
 function showContainers() {
   // $('.project.container').addClass('transition hidden');
-  var count = 0;
-  var cb = function() {
-    count ++;
-    if (count == Meteor.Projects.find({}).fetch().length) {
-      Session.set('renderedProjects', true);
-    }
-  }
   function animateContainers(i) {
-    $('.project.container.projectItem' + i).transition({
-      animation : 'scale',
-      reverse   : 'auto', // default setting
-      interval  : renderDelay,
-      onShow  : cb
-    });
+      $('.project.container.' + i).transition({
+        animation : 'scale',
+        reverse   : 'auto', // default setting
+        interval  : renderDelay,
+        onShow  : cb
+      });
   }
-  animateContainers('0');
-  animateContainers('1');
-  animateContainers('2');
+  if (!(Session.get('renderedProjects'))) {
+
+    var count = 0;
+    var cb = function() {
+      count ++;
+      if (count == Meteor.Projects.find({}).fetch().length) {
+        Session.set('renderedProjects', true);
+      }
+    }
+
+    animateContainers('0');
+    animateContainers('1');
+    animateContainers('2');
+  }
 }
 
 function checkCollapsedProjects() {
-  if ($(window).width() <= 767) {
+  // if ($('#projectItem0').width() > ($(window).width() / 2)) {
+  if ($(window).width() <= 767) { //bleh, figure out a better way for this >.<
     Session.set('collapsedProjects', true);
   } else {
     Session.set('collapsedProjects', false);
@@ -62,7 +74,6 @@ function checkCollapsedProjects() {
 
 Template.projects.onRendered(function() {
   Session.set('renderedProjects', false)
-
   window.onresize = function(event) {
     checkCollapsedProjects();
   };
@@ -77,7 +88,12 @@ Template.projects.onRendered(function() {
         .removeClass('active');
     }
   });
-  if (!(Session.get('renderedProjects'))) {
-    Meteor.setTimeout(showContainers, renderDelay);
-  }
+  $('#projectsContainer').transition({
+    animation: 'fade left',
+    duration: transitionDelay,
+    onShow: showContainers
+  });
+  // if (!(Session.get('renderedProjects'))) {
+    // Meteor.setTimeout(showContainers, renderDelay);
+  // }
 });
