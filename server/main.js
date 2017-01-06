@@ -1,9 +1,15 @@
 import { Meteor } from 'meteor/meteor';
 
+// var adminPassword = "henryssobadatthisgamelmao123"
+var adminPassword = "123"
+
 Meteor.startup(() => {
   Meteor.publish("projects", function () {
     return Meteor.Projects.find({});
   });
+  Meteor.publish("myuser", function() {
+    return Meteor.users.find({_id: this.userId});
+  })
 });
 
 function decreaseTime(lobbyID) {
@@ -22,58 +28,7 @@ function runRound(length, lobbyID) {
 }
 
 Meteor.methods({
-  'makeLobby': function(lobbyID, host) {
-		Meteor.Games.insert({
-			lobbyID: lobbyID,
-			host: host,
-			players: [host],
-			started_game: false,
-			finished_game: false,
-		});
-    },
-	'joinLobby': function(lobbyID, player) {
-		this.unblock();
-		var lobby = Meteor.Games.findOne({lobbyID: lobbyID});
-		if (lobby) {
-			var currentPlayers = lobby.players;
-			currentPlayers.push(player);
-			Meteor.Games.update({lobbyID: lobbyID}, {$set: {players: currentPlayers}});
-			return true;
-		}
-		return false;
-	},
-	'setTimeRound': function(timeRounds, lobbyID) {
-		this.unblock();
-		Meteor.Games.update({lobbyID: lobbyID}, {$set: {timePerRound: timeRounds}});
-		return true;
-	},
-	'startGame': function(timeRounds, lobbyID) {
-		this.unblock();
-		var lobby = Meteor.Games.findOne({lobbyID: lobbyID});
-		if (lobby) {
-			var placeholders = [];
-			var guesses = [];
-			var currentPositions = [];
-			for (var i = 0; i < lobby.players.length; i++) {
-				placeholders.push(i);
-				currentPositions.push(i);
-			}
-
-			var updates = {
-				timePerRound: timeRounds,
-				round: 1,
-				placeholders: placeholders,
-				currentPositions: currentPositions,
-				startedGame: true,
-				timeRemaining: timeRounds,
-				guesses: guesses
-			}
-			Meteor.Games.update({lobbyID: lobbyID}, {$set: updates});
-
-			runRound(timeRounds, lobbyID);
-
-			return true;
-		}
-		return false;
-	},
+  'insertProject': function(obj) {
+    Meteor.Projects.insert(obj);
+  },
 });

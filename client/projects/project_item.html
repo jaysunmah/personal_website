@@ -1,14 +1,12 @@
 <template name="project_item">
   <div class="ui transition {{isHidden}} segment project container {{itemIndex}}" id="{{totalIndex}}">
-    <h4>Dec 2015 - Jan 2016</h4>
+    <h4>{{date}}</h4>
     <img class="ui centered image project item" src ="{{image}}" />
-    <h2 class="ui sub header">WORKING TITLES</h2>
-    <span>is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</span>
+    <h2 class="ui sub header">{{title}}</h2>
+    <span>{{description}}</span>
     <h2 class="ui sub header">LANGUAGES</h2>
     <span>{{languages}}</span>
     <div class="ui hidden divider"></div>
     <a href="/projects" id="goTo{{totalIndex}}" class="project item link">See more</a>
-    <!-- <div class="ui hidden divider"></div> -->
-    <!-- <a href="/projects">Github</a> -->
   </div>
 </template>

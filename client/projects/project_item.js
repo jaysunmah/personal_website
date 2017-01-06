@@ -12,7 +12,7 @@ Template.project_item.helpers({
     return getIndexOf(this);
   },
   isHidden: function() {
-    if(!(Session.get('renderedProjects'))) {
+    if(!(Session.get('renderedProjects')) && getIndexOf(this) != -1) {
       return 'hidden';
     } else {
       return 'visible';

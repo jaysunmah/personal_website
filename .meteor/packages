@@ -23,3 +23,8 @@ semantic:ui
 flemay:less-autoprefixer
 jquery
 session
+accounts-ui
+check
+ejson
+random
+accounts-github
